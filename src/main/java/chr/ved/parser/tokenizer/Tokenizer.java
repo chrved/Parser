@@ -1,6 +1,7 @@
 package chr.ved.parser.tokenizer;
 
 import chr.ved.parser.exception.ParserException;
+import chr.ved.parser.grammar.TokenType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,7 @@ public class Tokenizer {
 
     public void tokenize(String str) {
         String s = str;
+        s = s.trim();
         tokens.clear();
 
         while (!s.equals("")){
@@ -42,7 +44,7 @@ public class Tokenizer {
 
     }
 
-    public void add(String regex, int token) {
+    public void add(String regex, TokenType token) {
         tokenInfos.add(new TokenInfo(Pattern.compile("^("+regex+")"), token));
     }
 
