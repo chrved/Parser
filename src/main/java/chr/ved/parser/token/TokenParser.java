@@ -1,18 +1,19 @@
-package chr.ved.parser.tokenizer;
+package chr.ved.parser.token;
 
 import chr.ved.parser.exception.ParserException;
-import chr.ved.parser.grammar.TokenType;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Tokenizer {
+public class TokenParser {
     private List<TokenInfo> tokenInfos;
+    @Getter
     private List<Token> tokens;
 
-    public Tokenizer() {
+    public TokenParser() {
         tokenInfos = new ArrayList<>();
         tokens = new ArrayList<>();
     }
@@ -48,7 +49,4 @@ public class Tokenizer {
         tokenInfos.add(new TokenInfo(Pattern.compile("^("+regex+")"), token));
     }
 
-    public List<Token> getTokens() {
-        return tokens;
-    }
 }

@@ -1,6 +1,4 @@
-package chr.ved.parser.tokenizer;
-
-import chr.ved.parser.grammar.TokenType;
+package chr.ved.parser.token;
 
 import java.util.regex.Pattern;
 

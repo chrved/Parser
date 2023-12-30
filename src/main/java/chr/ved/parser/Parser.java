@@ -1,19 +1,18 @@
 package chr.ved.parser;
 
 import chr.ved.parser.exception.ParserException;
-import chr.ved.parser.tokenizer.Token;
+import chr.ved.parser.token.Token;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import static chr.ved.parser.grammar.TokenType.*;
+
+import static chr.ved.parser.token.TokenType.*;
+
 
 public class Parser {
-    private static Logger log = LoggerFactory.getLogger(Parser.class);
     private Stack<Token> tokens = new Stack<>();
     private Token lookahead;
 
@@ -39,19 +38,19 @@ public class Parser {
         } else {
             lookahead = tokens.pop();
         }
-        log.info("Got a new token. {} {}",lookahead.getToken(),lookahead.getSequence());
+//        log.info("Got a new token. {} {}",lookahead.getToken(),lookahead.getSequence());
     }
 
     private void expression() {
 //        expression -> signed_term sum_op
-        log.info("In Expression. {} {}",lookahead.getToken(),lookahead.getSequence());
+//        log.info("In Expression. {} {}",lookahead.getToken(),lookahead.getSequence());
         signedTerm();
         sumOp();
     }
     private void signedTerm() {
-        log.info("In SignedTerm. {} {}",lookahead.getToken(),lookahead.getSequence());
+//        log.info("In SignedTerm. {} {}",lookahead.getToken(),lookahead.getSequence());
         if (lookahead.getToken() == PLUSMINUS) {
-            log.info("FOUND MATCH. {} {}",lookahead.getToken(),lookahead.getSequence());
+//            log.info("FOUND MATCH. {} {}",lookahead.getToken(),lookahead.getSequence());
             //signedTerm -> PLUSMINUS term sum_op
             nextToken();
             term();
@@ -62,9 +61,9 @@ public class Parser {
 
     }
     private void sumOp() {
-        log.info("In SumOp. {} {}",lookahead.getToken(),lookahead.getSequence());
+//        log.info("In SumOp. {} {}",lookahead.getToken(),lookahead.getSequence());
         if (lookahead.getToken() == PLUSMINUS){
-            log.info("FOUND MATCH. {} {}",lookahead.getToken(),lookahead.getSequence());
+//            log.info("FOUND MATCH. {} {}",lookahead.getToken(),lookahead.getSequence());
             //sum_op -> PLUSMINUS term sum_op
             nextToken();
             term();
@@ -75,17 +74,17 @@ public class Parser {
     }
 
     private void term() {
-        log.info("In Term. {} {}",lookahead.getToken(),lookahead.getSequence());
+//        log.info("In Term. {} {}",lookahead.getToken(),lookahead.getSequence());
         //term -> factor term_op
         factor();
         termOp();
     }
 
     private void termOp() {
-        log.info("In TermOp. {} {}",lookahead.getToken(),lookahead.getSequence());
+//        log.info("In TermOp. {} {}",lookahead.getToken(),lookahead.getSequence());
         //term_op -> MULTDIV signed_factor term_op
         if(lookahead.getToken() == MULTDIV){
-            log.info("FOUND MATCH. {} {}",lookahead.getToken(),lookahead.getSequence());
+//            log.info("FOUND MATCH. {} {}",lookahead.getToken(),lookahead.getSequence());
             nextToken();
             signedFactor();
             termOp();
@@ -94,16 +93,16 @@ public class Parser {
         }
     }
     private void factor() {
-        log.info("In Factor. {} {}",lookahead.getToken(),lookahead.getSequence());
+//        log.info("In Factor. {} {}",lookahead.getToken(),lookahead.getSequence());
         // factor -> argument factor_op
         argument();
         factorOp();
     }
 
     private void signedFactor() {
-        log.info("In SignedFactor. {} {}",lookahead.getToken(),lookahead.getSequence());
+//        log.info("In SignedFactor. {} {}",lookahead.getToken(),lookahead.getSequence());
         if (lookahead.getToken() == PLUSMINUS) {
-            log.info("FOUND MATCH. {} {}",lookahead.getToken(),lookahead.getSequence());
+//            log.info("FOUND MATCH. {} {}",lookahead.getToken(),lookahead.getSequence());
             // signed_factor -> PLUSMINUS factor
             nextToken();
             factor();
@@ -114,9 +113,9 @@ public class Parser {
     }
 
     private void factorOp() {
-        log.info("In FactorOp. {} {}",lookahead.getToken(),lookahead.getSequence());
+//        log.info("In FactorOp. {} {}",lookahead.getToken(),lookahead.getSequence());
         if (lookahead.getToken() == RAISED) {
-            log.info("FOUND MATCH. {} {}",lookahead.getToken(),lookahead.getSequence());
+//            log.info("FOUND MATCH. {} {}",lookahead.getToken(),lookahead.getSequence());
             // factor_op -> RAISED expression
             nextToken();
             signedFactor();
@@ -126,14 +125,14 @@ public class Parser {
     }
 
     private void argument() {
-        log.info("In Argument. {} {}",lookahead.getToken(),lookahead.getSequence());
+//        log.info("In Argument. {} {}",lookahead.getToken(),lookahead.getSequence());
         if (lookahead.getToken() == FUNCTION) {
-            log.info("FOUND MATCH. {} {}",lookahead.getToken(),lookahead.getSequence());
+//            log.info("FOUND MATCH. {} {}",lookahead.getToken(),lookahead.getSequence());
             // argument -> FUNCTION argument
             nextToken();
             argument();
         } else if (lookahead.getToken() == OPEN_BRACKET) {
-            log.info("FOUND MATCH. {} {}",lookahead.getToken(),lookahead.getSequence());
+//            log.info("FOUND MATCH. {} {}",lookahead.getToken(),lookahead.getSequence());
             // argument -> OPEN_BRACKET sum CLOSE_BRACKET
             nextToken();
             expression();
@@ -150,13 +149,13 @@ public class Parser {
     }
 
     private void value() {
-        log.info("In Value. {} {}",lookahead.getToken(),lookahead.getSequence());
+//        log.info("In Value. {} {}",lookahead.getToken(),lookahead.getSequence());
         if (lookahead.getToken() == NUMBER) {
-            log.info("FOUND MATCH. {} {}",lookahead.getToken(),lookahead.getSequence());
+//            log.info("FOUND MATCH. {} {}",lookahead.getToken(),lookahead.getSequence());
             // argument -> NUMBER
             nextToken();
         }else if (lookahead.getToken() == VARIABLE) {
-            log.info("FOUND MATCH. {} {}",lookahead.getToken(),lookahead.getSequence());
+//            log.info("FOUND MATCH. {} {}",lookahead.getToken(),lookahead.getSequence());
             // argument -> VARIABLE
             nextToken();
         } else {

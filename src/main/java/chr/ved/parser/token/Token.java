@@ -1,6 +1,5 @@
-package chr.ved.parser.tokenizer;
+package chr.ved.parser.token;
 
-import chr.ved.parser.grammar.TokenType;
 import lombok.Getter;
 
 @Getter

@@ -1,4 +1,4 @@
-package chr.ved.parser.grammar;
+package chr.ved.parser.token;
 
 public enum TokenType {
     EPSILON(0),
