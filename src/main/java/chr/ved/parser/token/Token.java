@@ -6,10 +6,10 @@ import lombok.Getter;
 public class Token {
 
     private final TokenType token;
-    private final String sequence;
+    private final String value;
 
     public Token(TokenType token, String sequence) {
         this.token = token;
-        this.sequence = sequence;
+        this.value = sequence;
     }
 }

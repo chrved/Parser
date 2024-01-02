@@ -18,7 +18,7 @@ public class TokenParser {
         tokens = new ArrayList<>();
     }
 
-    public void tokenize(String str) {
+    public void parse(String str) {
         String s = str;
         s = s.trim();
         tokens.clear();
@@ -45,7 +45,7 @@ public class TokenParser {
 
     }
 
-    public void add(String regex, TokenType token) {
+    public void addTokenType(TokenType token, String regex)  {
         tokenInfos.add(new TokenInfo(Pattern.compile("^("+regex+")"), token));
     }
 

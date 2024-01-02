@@ -1,5 +1,3 @@
-
-
 expression -> signed_term sum_op
     signed_term -> PLUSMINUS term
     signed_term -> term
@@ -18,3 +16,21 @@ expression -> signed_term sum_op
                         argument -> OPEN_BRACKET expression CLOSE_BRACKET
                             value -> NUMBER
                             value -> VARIABLE
+
+expression -> signed_term sum_operator
+    signed_term -> minus term
+    signed_term -> term
+    sum_operator -> '+' | '-' term sum_operator
+    sum_operator -> EPSILON
+        term -> factor term_operator
+        term_operator -> '*' | '/' signed_factor term_operator
+        term_operator -> EPSILON
+            signed_factor -> minus factor
+            signed_factor -> factor
+                factor -> argument factor_operator
+                factor_op -> RAISED signed_factor
+                factor_op -> EPSILON
+                    argument -> value
+                    argument -> FUNCTION argument
+                    argument -> OPEN_BRACKET expression CLOSE_BRACKET
+                        value -> NUMBER | VARIABLE
