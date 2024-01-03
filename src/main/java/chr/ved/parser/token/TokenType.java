@@ -12,10 +12,5 @@ public enum TokenType {
     CLOSE_BRACKET(),
     NUMBER(),
     VARIABLE(),
-    WHITESPACE();
-//
-//    private final int code;
-//    TokenType(int code){
-//        this.code = code;
-//    }
+    WHITESPACE()
 }

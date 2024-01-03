@@ -6,5 +6,5 @@ public enum NodeType {
     ADDITION,
     MULTIPLICATION,
     EXPONENTIATION,
-    FUNCTION;
+    FUNCTION
 }

@@ -9,7 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class TokenParser {
-    private List<TokenInfo> tokenInfos;
+    private final List<TokenInfo> tokenInfos;
     @Getter
     private List<Token> tokens;
 
@@ -23,7 +23,7 @@ public class TokenParser {
         s = s.trim();
         tokens.clear();
 
-        while (!s.equals("")){
+        while (!s.isEmpty()){
             boolean match = false;
             for (TokenInfo info : tokenInfos) {
                 Matcher m = info.regex.matcher(s);

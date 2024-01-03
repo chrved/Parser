@@ -6,7 +6,7 @@ import java.util.LinkedList;
 
 public abstract class SequenceNode implements Node {
 
-    protected LinkedList<Term> terms;
+    protected final LinkedList<Term> terms;
 
     public SequenceNode() {
         this.terms = new LinkedList<>();

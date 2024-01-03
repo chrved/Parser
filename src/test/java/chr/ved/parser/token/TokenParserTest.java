@@ -1,7 +1,6 @@
 package chr.ved.parser.token;
 
 import chr.ved.parser.exception.ParserException;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -62,9 +61,7 @@ public class TokenParserTest {
     @Test
     public void testUnknown(){
 
-        ParserException thrown = assertThrows(ParserException.class, () -> {
-            tokenParser.parse(" 1;1");
-        });
+        ParserException thrown = assertThrows(ParserException.class, () -> tokenParser.parse(" 1;1"));
 
         assertEquals("Unexpected character in input: ;1", thrown.getMessage());
     }

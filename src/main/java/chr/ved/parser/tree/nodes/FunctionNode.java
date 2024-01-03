@@ -3,8 +3,9 @@ package chr.ved.parser.tree.nodes;
 import chr.ved.parser.exception.EvaluationException;
 import chr.ved.parser.tree.Node;
 import chr.ved.parser.tree.NodeType;
+import chr.ved.parser.tree.NodeVisitor;
 
-public class FunctionNode extends SequenceNode {
+public class FunctionNode implements Node {
     public static final int SIN = 1;
     public static final int COS = 2;
     public static final int TAN = 3;
@@ -20,8 +21,8 @@ public class FunctionNode extends SequenceNode {
     public static final int LOG = 10;
     public static final int LOG2 = 11;
 
-    private int function;
-    private Node argument;
+    private final int function;
+    private final Node argument;
 
     public FunctionNode(int function, Node argument) {
         super();
@@ -35,22 +36,28 @@ public class FunctionNode extends SequenceNode {
 
     @Override
     public double getValue() {
-        switch (function) {
-            case SIN:  return Math.sin(argument.getValue());
-            case COS:  return Math.cos(argument.getValue());
-            case TAN:  return Math.tan(argument.getValue());
-            case ASIN: return Math.asin(argument.getValue());
-            case ACOS: return Math.acos(argument.getValue());
-            case ATAN: return Math.atan(argument.getValue());
-            case SQRT: return Math.sqrt(argument.getValue());
-            case EXP:  return Math.exp(argument.getValue());
-            case LN:   return Math.log(argument.getValue());
-            case LOG:  return Math.log(argument.getValue())
+        return switch (function) {
+            case SIN -> Math.sin(argument.getValue());
+            case COS -> Math.cos(argument.getValue());
+            case TAN -> Math.tan(argument.getValue());
+            case ASIN -> Math.asin(argument.getValue());
+            case ACOS -> Math.acos(argument.getValue());
+            case ATAN -> Math.atan(argument.getValue());
+            case SQRT -> Math.sqrt(argument.getValue());
+            case EXP -> Math.exp(argument.getValue());
+            case LN -> Math.log(argument.getValue());
+            case LOG -> Math.log(argument.getValue())
                     * 0.43429448190325182765;
-            case LOG2: return Math.log(argument.getValue())
+            case LOG2 -> Math.log(argument.getValue())
                     * 1.442695040888963407360;
-        }
-        throw new EvaluationException("Invalid function id "+function+"!");
+            default -> throw new EvaluationException("Invalid function id " + function + "!");
+        };
+    }
+
+    @Override
+    public void accept(NodeVisitor visitor) {
+        visitor.visit(this);
+        argument.accept(visitor);
     }
 
     public static int stringToFunction(String str) {
@@ -70,9 +77,5 @@ public class FunctionNode extends SequenceNode {
         if (str.equals("log2")) return FunctionNode.LOG2;
 
         throw new EvaluationException("Unexpected Function "+str+" found!");
-    }
-
-    public static String getAllFunctions() {
-        return "sin|cos|tan|asin|acos|atan|sqrt|exp|ln|log|log2";
     }
 }

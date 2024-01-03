@@ -3,10 +3,13 @@ package chr.ved.parser.tree.nodes;
 import chr.ved.parser.exception.EvaluationException;
 import chr.ved.parser.tree.Node;
 import chr.ved.parser.tree.NodeType;
+import chr.ved.parser.tree.NodeVisitor;
+import lombok.Getter;
 
 public class VariableNode implements Node {
 
-    private String name;
+    @Getter
+    private final String name;
     private Double value;
 
     public VariableNode(String name) {
@@ -30,5 +33,10 @@ public class VariableNode implements Node {
                     + name + "' was not initialized.");
         }
         return value;
+    }
+
+    @Override
+    public void accept(NodeVisitor visitor) {
+        visitor.visit(this);
     }
 }
