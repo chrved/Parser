@@ -1,4 +1,7 @@
-package chr.ved.parser.tree;
+package chr.ved.parser.tree.nodes;
+
+import chr.ved.parser.tree.Node;
+import chr.ved.parser.tree.NodeType;
 
 public class ConstantNode implements Node {
     private final double value;

@@ -1,8 +1,11 @@
-package chr.ved.parser.tree;
+package chr.ved.parser.tree.nodes;
+
+import chr.ved.parser.tree.Node;
+import chr.ved.parser.tree.NodeType;
 
 public class AdditionNode extends SequenceNode {
 
-    AdditionNode() { super();}
+    public AdditionNode() { super();}
     public AdditionNode(Node node, boolean positive) {
         super(node, positive);
     }

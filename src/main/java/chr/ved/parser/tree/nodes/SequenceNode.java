@@ -1,4 +1,6 @@
-package chr.ved.parser.tree;
+package chr.ved.parser.tree.nodes;
+
+import chr.ved.parser.tree.Node;
 
 import java.util.LinkedList;
 
